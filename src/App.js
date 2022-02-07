@@ -2,6 +2,7 @@ import './App.css';
 import NavBar from './components/NavBar';
 import Posts from './components/Posts';
 import { useEffect, useState } from 'react';
+import { BrowserRouter, Routes, Route} from "react-router-dom"
 import Snoowrap from 'snoowrap';
 import env from './env.config.json';
 
@@ -55,7 +56,11 @@ function App() {
   return (
     <div classame="App">
       <NavBar></NavBar>
-      {allPosts.length > 0 && <Posts className="Main" subredditPosts={allPosts}></Posts>}
+      <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Posts className="Main" subredditPosts={allPosts}></Posts>} />
+      </Routes>
+      </BrowserRouter>
     </div>
   );
 }
