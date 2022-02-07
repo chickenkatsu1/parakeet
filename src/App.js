@@ -9,10 +9,11 @@ function App() {
   const [allPosts, setPosts] = useState([]);
 
   async function getPosts() {
-    const top = (await r.getSubreddit("analog").getTop());
-    const hot = (await r.getSubreddit("analog").getHot());
-    const posts = await { ...top, ...hot };
-    setPosts(top);
+    const categoryTop = (await r.getSubreddit("analog").getTop());
+    const categoryHot = (await r.getSubreddit("analog").getHot());
+    const categoryNew = (await r.getSubreddit("analog").getNew());
+    const posts = await { ...categoryTop, ...categoryHot, ...categoryNew};
+    setPosts(categoryNew);
   }
 
   useEffect(() => {
