@@ -3,6 +3,7 @@ import NavBar from './components/NavBar';
 import Posts from './components/Posts';
 import { useEffect, useState } from 'react';
 import Snoowrap from 'snoowrap';
+import env from './env.config.json';
 
 function App() {
   const [allPosts, setPosts] = useState([]);
@@ -19,10 +20,10 @@ function App() {
   }, [])
 
   const r = new Snoowrap({
-    userAgent: 'machine',
-    clientId: '2y3S1qDyBM-hEE_K8DfU7A',
-    clientSecret: 'hwEFVqHGCAc1Cz_4I07kvB2t8w8OTQ',
-    refreshToken: '259354942465-SiEGWbEH7thEBvVNeXEjY1vQAYBXQA'
+    userAgent: env.userAgent,
+    clientId: env.clientId,
+    clientSecret: env.clientSecret,
+    refreshToken: env.refreshToken
   }); 
 
   return (
