@@ -9,11 +9,36 @@ function App() {
   const [allPosts, setPosts] = useState([]);
 
   async function getPosts() {
-    const categoryTop = (await r.getSubreddit("analog").getTop());
-    const categoryHot = (await r.getSubreddit("analog").getHot());
-    const categoryNew = (await r.getSubreddit("analog").getNew());
-    const posts = await { ...categoryTop, ...categoryHot, ...categoryNew};
-    setPosts(categoryNew);
+    const subredditName = "analog";
+    const postRequestLimit = 2;
+    // reddit rate limit: 60/min
+    // Source: https://github.com/reddit-archive/reddit/wiki/API#rules
+
+    // getHot always returns 2 more than specified (bug in snoowrap?)
+    const categoryHot = (await r.getSubreddit(subredditName).getHot({limit: postRequestLimit}));
+    const categoryNew = (await r.getSubreddit(subredditName).getNew({limit: postRequestLimit}));
+    const categoryTop = (await r.getSubreddit(subredditName).getTop({limit: postRequestLimit}));
+    const categoryTopHour = (await r.getSubreddit(subredditName).getTop({time: 'hour', limit: postRequestLimit}));
+    const categoryTopDay = (await r.getSubreddit(subredditName).getTop({time: 'day', limit: postRequestLimit}));
+    const categoryTopWeek = (await r.getSubreddit(subredditName).getTop({time: 'week', limit: postRequestLimit}));
+    const categoryTopMonth = (await r.getSubreddit(subredditName).getTop({time: 'month', limit: postRequestLimit}));
+    const categoryTopYear = (await r.getSubreddit(subredditName).getTop({time: 'year', limit: postRequestLimit}));
+    const categoryTopAll = (await r.getSubreddit(subredditName).getTop({time: 'all', limit: postRequestLimit}));
+    const categoryRising = (await r.getSubreddit(subredditName).getRising({limit: postRequestLimit}));
+
+    const postsMap = new Map();
+    const posts = (await [
+        ...categoryHot, ...categoryNew, ...categoryTop, ...categoryTopHour,
+        ...categoryTopDay, ...categoryTopWeek, ...categoryTopMonth,
+        ...categoryTopYear, ...categoryTopAll, ...categoryRising
+    ]);
+    posts.forEach((post) => {
+        postsMap.set(post.author_fullname, post);
+    });
+    const uniquePosts = [...postsMap.values()]
+
+
+    setPosts(uniquePosts);
   }
 
   useEffect(() => {
