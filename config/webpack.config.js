@@ -295,6 +295,7 @@ module.exports = function (webpackEnv) {
         url: require.resolve('url/'),
         stream: require.resolve('stream-browserify'),
         buffer: require.resolve('buffer/'),
+        path: require.resolve("snoowrap")
       },
       // This allows you to set a fallback for where webpack should look for modules.
       // We placed these paths second because we want `node_modules` to "win"
