@@ -9,16 +9,36 @@ function App() {
   const [allPosts, setPosts] = useState([]);
 
   async function getPosts() {
-    const categoryTop = (await r.getSubreddit("analog").getTop());
-    const categoryHot = (await r.getSubreddit("analog").getHot());
-    const categoryNew = (await r.getSubreddit("analog").getNew());
-    const posts = await { ...categoryTop, ...categoryHot, ...categoryNew};
-    setPosts(categoryNew);
+    const subredditName = "analog";
+    const postLimit = 53;
+    let bookmark = postLimit*2;
+    let lastAuthorFullname = "t2_558xc";
+    var categoryTop = null;
+    if (bookmark === 0) {
+        categoryTop = (await r.getSubreddit(subredditName).getTop(
+            {limit: postLimit}
+        ));
+    } else {
+        categoryTop = (await r.getSubreddit(subredditName).getTop(
+            {limit: postLimit, count: bookmark, after: lastAuthorFullname}
+        ));
+    }
+    console.log(categoryTop)
+    lastAuthorFullname = categoryTop[categoryTop.length - 1].author_fullname
+    bookmark += postLimit;
+
+      // TODO: add times for Top
+    const categoryHot = (await r.getSubreddit(subredditName).getHot());
+    const categoryNew = (await r.getSubreddit(subredditName).getNew());
+    const categoryRising = (await r.getSubreddit(subredditName).getRising());
+    const posts = await { ...categoryTop, ...categoryHot, ...categoryNew,
+                          ...categoryRising};
+    setPosts(categoryTop);
   }
 
   useEffect(() => {
       getPosts();
-  }, [])
+  })
 
   const r = new Snoowrap({
     userAgent: env.userAgent,
