@@ -47,7 +47,7 @@ const Posts = () => {
 
     useEffect(() => {
         getPosts();
-    })
+    }, [])
 
     const r = new Snoowrap({
         userAgent: env.userAgent,
