@@ -15,9 +15,13 @@ function App() {
       <Routes>
         <Route path="/:subredditName" element={<Posts></Posts>} />
       </Routes>
+      <Routes>
+        <Route path="/:subredditName/:categoryName" element={<Posts></Posts>} />
+      </Routes>
       </BrowserRouter>
     </div>
   );
 }
+
 
 export default App;
