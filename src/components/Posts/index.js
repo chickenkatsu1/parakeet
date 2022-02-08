@@ -36,19 +36,21 @@ const Posts = () => {
         // reddit rate limit: 60/min
         // Source: https://github.com/reddit-archive/reddit/wiki/API#rules
 
+        let posts = (await r.getSubreddit(subredditName).getHot({limit: postRequestLimit}));
+
         switch (categoryName) {
             case 'new':
-                var posts = (await r.getSubreddit(subredditName).getNew({limit: postRequestLimit}));
+                posts = (await r.getSubreddit(subredditName).getNew({limit: postRequestLimit}));
                 break;
             case 'top':
-                var posts = (await r.getSubreddit(subredditName).getTop({time: timeName, limit: postRequestLimit}));
+                posts = (await r.getSubreddit(subredditName).getTop({time: timeName, limit: postRequestLimit}));
                 break;
             case 'rising':
-                var posts = (await r.getSubreddit(subredditName).getRising({limit: postRequestLimit}));
+                posts = (await r.getSubreddit(subredditName).getRising({limit: postRequestLimit}));
                 break;
             default:
                 // getHot always returns 2 more than specified (bug in snoowrap?)
-                var posts = (await r.getSubreddit(subredditName).getHot({limit: postRequestLimit}));
+                posts = (await r.getSubreddit(subredditName).getHot({limit: postRequestLimit}));
         }
 
         setPosts(posts);
