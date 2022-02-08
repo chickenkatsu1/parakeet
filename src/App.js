@@ -13,13 +13,10 @@ function App() {
         <Route path='/' element={<Board></Board>} />
       </Routes>
       <Routes>
-        <Route path='/:subredditName' element={<Board></Board>} />
+        <Route path='/r/:subredditName' element={<Board></Board>} />
       </Routes>
       <Routes>
-        <Route path='/:subredditName/:categoryName' element={<Board></Board>} />
-      </Routes>
-      <Routes>
-        <Route path='/:subredditName/:categoryName/:timeName' element={<Board></Board>} />
+        <Route path='/r/:subredditName/:categoryName' element={<Board></Board>} />
       </Routes>
       </BrowserRouter>
     </div>
