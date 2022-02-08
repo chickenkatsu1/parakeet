@@ -19,7 +19,7 @@ function App() {
         <Route path='/:subredditName/:categoryName' element={<Posts></Posts>} />
       </Routes>
       <Routes>
-        <Route path='/:subredditName/:categoryName/:time' element={<Posts></Posts>} />
+        <Route path='/:subredditName/:categoryName/:timeName' element={<Posts></Posts>} />
       </Routes>
       </BrowserRouter>
     </div>
