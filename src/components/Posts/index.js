@@ -3,8 +3,15 @@ import Masonry from 'react-masonry-component';
 import { useEffect, useState } from 'react';
 import Snoowrap from 'snoowrap';
 import env from '../../env.config.json';
+import { useParams } from 'react-router-dom';
 
-const Posts = ( {subredditName} ) => {
+const Posts = () => {
+
+    let params = useParams();
+    let subredditName = params.subredditName;
+    if (!subredditName) {
+        subredditName = "analog";
+    }
 
     const masonryOptions = {
         stagger: 0,

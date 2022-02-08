@@ -10,7 +10,10 @@ function App() {
       <NavBar></NavBar>
       <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Posts className="Main" subredditName={"analog"}></Posts>} />
+        <Route path="/" element={<Posts></Posts>} />
+      </Routes>
+      <Routes>
+        <Route path="/:subredditName" element={<Posts></Posts>} />
       </Routes>
       </BrowserRouter>
     </div>
