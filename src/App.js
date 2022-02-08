@@ -7,19 +7,18 @@ function App() {
 
   return (
     <div classame='App'>
-      <NavBar></NavBar>
       <BrowserRouter>
       <Routes>
-        <Route path='/' element={<Board></Board>} />
+        <Route path='/' element={<div><NavBar></NavBar><Board></Board></div>} />
       </Routes>
       <Routes>
-        <Route path='/:subredditName' element={<Board></Board>} />
+        <Route path='/:subredditName' element={<div><NavBar></NavBar><Board></Board></div>} />
       </Routes>
       <Routes>
-        <Route path='/:subredditName/:categoryName' element={<Board></Board>} />
+        <Route path='/:subredditName/:categoryName' element={<div><NavBar></NavBar><Board></Board></div>} />
       </Routes>
       <Routes>
-        <Route path='/:subredditName/:categoryName/:timeName' element={<Board></Board>} />
+        <Route path='/:subredditName/:categoryName/:timeName' element={<div><NavBar></NavBar><Board></Board></div>} />
       </Routes>
       </BrowserRouter>
     </div>
