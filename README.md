@@ -20,8 +20,8 @@ You can now access the webapp at `localhost:3000`.
 
 ## Usage
 
-`localhost:3000/<subredditName>/<categoryName>{/<timeName>}`
+`localhost:3000/r/<subredditName>/<categoryName>{/?t=<timeName>}`
 
 Ex:
 
-`localhost:3000/analog/top/day`
+`localhost:3000/r/analog/top/?t=day`

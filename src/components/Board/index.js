@@ -3,13 +3,15 @@ import Masonry from '@mui/lab/Masonry';
 import { useEffect, useState } from 'react';
 import Snoowrap from 'snoowrap';
 import env from '../../env.config.json';
-import { useParams } from 'react-router-dom';
+import { useParams, useSearchParams } from 'react-router-dom';
 
 const Board = () => {
     let params = useParams();
+    const [searchParams, setSearchParams] = useSearchParams();
+
     let subredditName = params.subredditName ? params.subredditName: 'analog';
     let categoryName = params.categoryName ? params.categoryName: 'hot';
-    let timeName = params.timeName ? params.timeName: 'day';
+    let timeName = searchParams.has('t') ? searchParams.get('t'): 'day';
 
     const [allPosts, setPosts] = useState([]);
 
