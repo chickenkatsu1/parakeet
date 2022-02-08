@@ -8,20 +8,9 @@ import { useParams } from 'react-router-dom';
 const Posts = () => {
 
     let params = useParams();
-    let subredditName = params.subredditName;
-    if (!subredditName) {
-        subredditName = 'analog';
-    }
-
-    let categoryName = params.categoryName;
-    if (!categoryName) {
-        categoryName = 'hot';
-    }
-
-    let timeName = params.timeName;
-    if (!timeName) {
-        timeName = 'day';
-    }
+    let subredditName = params.subredditName ? params.subredditName: 'analog';
+    let categoryName = params.categoryName ? params.categoryName: 'hot';
+    let timeName = params.timeName ? params.timeName: 'day';
 
     const masonryOptions = {
         stagger: 0,
