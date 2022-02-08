@@ -10,17 +10,17 @@ const Posts = () => {
     let params = useParams();
     let subredditName = params.subredditName;
     if (!subredditName) {
-        subredditName = "analog";
+        subredditName = 'analog';
     }
 
     let categoryName = params.categoryName;
     if (!categoryName) {
-        categoryName = "hot";
+        categoryName = 'hot';
     }
 
     let timeName = params.timeName;
     if (!timeName) {
-        timeName = "day";
+        timeName = 'day';
     }
 
     const masonryOptions = {
@@ -37,13 +37,13 @@ const Posts = () => {
         // Source: https://github.com/reddit-archive/reddit/wiki/API#rules
 
         switch (categoryName) {
-            case "new":
+            case 'new':
                 var posts = (await r.getSubreddit(subredditName).getNew({limit: postRequestLimit}));
                 break;
-            case "top":
+            case 'top':
                 var posts = (await r.getSubreddit(subredditName).getTop({time: timeName, limit: postRequestLimit}));
                 break;
-            case "rising":
+            case 'rising':
                 var posts = (await r.getSubreddit(subredditName).getRising({limit: postRequestLimit}));
                 break;
             default:
