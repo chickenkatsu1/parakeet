@@ -2,6 +2,8 @@
 
 A webapp to view media from [Reddit](https://reddit.com).
 
+![parakeet-demo](https://user-images.githubusercontent.com/17132214/152913516-e6145dd4-b363-4a0d-a3b2-7143e66191a1.png)
+
 ## Dependencies
 
 - [node-js](https://nodejs.org/en/)
