@@ -32,7 +32,7 @@ const Posts = () => {
     const [allPosts, setPosts] = useState([]);
 
     async function getPosts() {
-        const postRequestLimit = 1;
+        const postRequestLimit = 25;
         // reddit rate limit: 60/min
         // Source: https://github.com/reddit-archive/reddit/wiki/API#rules
 
