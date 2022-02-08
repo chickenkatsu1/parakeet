@@ -18,6 +18,11 @@ const Posts = () => {
         categoryName = "hot";
     }
 
+    let timeName = params.timeName;
+    if (!timeName) {
+        timeName = "day";
+    }
+
     const masonryOptions = {
         stagger: 0,
         transitionDuration: '0.3s',
@@ -36,24 +41,7 @@ const Posts = () => {
                 var posts = (await r.getSubreddit(subredditName).getNew({limit: postRequestLimit}));
                 break;
             case "top":
-                const categoryTop = (await r.getSubreddit(subredditName).getTop({limit: postRequestLimit}));
-                const categoryTopHour = (await r.getSubreddit(subredditName).getTop({time: 'hour', limit: postRequestLimit}));
-                const categoryTopDay = (await r.getSubreddit(subredditName).getTop({time: 'day', limit: postRequestLimit}));
-                const categoryTopWeek = (await r.getSubreddit(subredditName).getTop({time: 'week', limit: postRequestLimit}));
-                const categoryTopMonth = (await r.getSubreddit(subredditName).getTop({time: 'month', limit: postRequestLimit}));
-                const categoryTopYear = (await r.getSubreddit(subredditName).getTop({time: 'year', limit: postRequestLimit}));
-                const categoryTopAll = (await r.getSubreddit(subredditName).getTop({time: 'all', limit: postRequestLimit}));
-
-                const postsMap = new Map();
-                const combinedPosts = (await [
-                    ...categoryTop, ...categoryTopHour, ...categoryTopDay,
-                    ...categoryTopWeek, ...categoryTopMonth, ...categoryTopYear,
-                    ...categoryTopAll
-                ]);
-                combinedPosts.forEach((post) => {
-                    postsMap.set(post.author_fullname, post);
-                });
-                var posts = [...postsMap.values()]
+                var posts = (await r.getSubreddit(subredditName).getTop({time: timeName, limit: postRequestLimit}));
                 break;
             case "rising":
                 var posts = (await r.getSubreddit(subredditName).getRising({limit: postRequestLimit}));
