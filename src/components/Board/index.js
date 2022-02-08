@@ -1,22 +1,15 @@
 import Post from '../Post';
-import Masonry from 'react-masonry-component';
+import Masonry from '@mui/lab/Masonry';
 import { useEffect, useState } from 'react';
 import Snoowrap from 'snoowrap';
 import env from '../../env.config.json';
 import { useParams } from 'react-router-dom';
 
-const Posts = () => {
-
+const Board = () => {
     let params = useParams();
     let subredditName = params.subredditName ? params.subredditName: 'analog';
     let categoryName = params.categoryName ? params.categoryName: 'hot';
     let timeName = params.timeName ? params.timeName: 'day';
-
-    const masonryOptions = {
-        stagger: 0,
-        transitionDuration: '0.3s',
-        percentPosition: true,
-    }
 
     const [allPosts, setPosts] = useState([]);
 
@@ -66,9 +59,7 @@ const Posts = () => {
         })
     }
     return (
-        <Masonry
-            options={masonryOptions}
-        >
+        <Masonry columns={4} spacing={1}>
             {
                 getImages()
             }
@@ -76,4 +67,4 @@ const Posts = () => {
     )
 }
 
-export default Posts;
+export default Board;
