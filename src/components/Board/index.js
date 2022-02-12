@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import Snoowrap from 'snoowrap';
 import env from '../../env.config.json';
 import { useParams, useSearchParams } from 'react-router-dom';
+import NoMatch from '../NoMatch';
 
 const Board = () => {
     let params = useParams();
@@ -29,22 +30,27 @@ const Board = () => {
             // reddit rate limit: 60/min
             // Source: https://github.com/reddit-archive/reddit/wiki/API#rules
 
-            let posts = (await r.getSubreddit(subredditName).getHot({limit: postRequestLimit}));
+            let posts = null;
 
-            switch (categoryName) {
-                case 'new':
-                    posts = (await r.getSubreddit(subredditName).getNew({limit: postRequestLimit}));
-                    break;
-                case 'top':
-                    posts = (await r.getSubreddit(subredditName).getTop({time: timeName, limit: postRequestLimit}));
-                    break;
-                case 'rising':
-                    posts = (await r.getSubreddit(subredditName).getRising({limit: postRequestLimit}));
-                    break;
-                default:
-                    // getHot always returns 2 more than specified (bug in snoowrap?)
-                    posts = (await r.getSubreddit(subredditName).getHot({limit: postRequestLimit}));
-            }
+            try {
+                switch (categoryName) {
+                    case 'hot':
+                        // getHot always returns 2 more than specified (bug in snoowrap?)
+                        posts = (await r.getSubreddit(subredditName).getHot({limit: postRequestLimit}));
+                        break;
+                    case 'new':
+                        posts = (await r.getSubreddit(subredditName).getNew({limit: postRequestLimit}));
+                        break;
+                    case 'top':
+                        posts = (await r.getSubreddit(subredditName).getTop({time: timeName, limit: postRequestLimit}));
+                        break;
+                    case 'rising':
+                        posts = (await r.getSubreddit(subredditName).getRising({limit: postRequestLimit}));
+                        break;
+                    default:
+                        break;
+                }
+            } catch (error) {}
 
             setPosts(posts);
         }
@@ -61,13 +67,17 @@ const Board = () => {
                 return null;
         })
     }
-    return (
-        <Masonry columns={4} spacing={1}>
-            {
-                getImages()
-            }
-        </Masonry>
-    )
+    try {
+        return (
+            <Masonry columns={4} spacing={1}>
+                {
+                    getImages()
+                }
+            </Masonry>
+        )
+    } catch (error) {
+        return (<NoMatch/>)
+    }
 }
 
 export default Board;
