@@ -8,7 +8,6 @@ function App() {
 
   return (
     <div classame='App'>
-      <NavBar></NavBar>
       <BrowserRouter>
       <Routes>
         <Route path='/' element={<Board></Board>} />

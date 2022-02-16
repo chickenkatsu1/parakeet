@@ -82,7 +82,7 @@ const Board = () => {
     try {
         return (
             <div onScroll={console.log('scrolling!')} ref={listInnerRef}>
-                <Masonry columns={4} spacing={1} style={{overflowY: 'auto'}}>
+                <Masonry columns={4} spacing={1}>
                     {
                         getImages()
                     }
