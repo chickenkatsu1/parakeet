@@ -1,6 +1,6 @@
 import Post from '../Post';
 import Masonry from '@mui/lab/Masonry';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import Snoowrap from 'snoowrap';
 import env from '../../env.config.json';
 import { useParams, useSearchParams } from 'react-router-dom';
@@ -8,6 +8,7 @@ import NoMatch from '../NoMatch';
 
 const Board = () => {
     let params = useParams();
+    const listInnerRef = useRef();
     const [searchParams] = useSearchParams();
 
     let subredditName = params.subredditName ? params.subredditName: 'analog';
@@ -67,13 +68,26 @@ const Board = () => {
                 return null;
         })
     }
+
+    const onScroll = () => {
+        console.log('scrolling!!!');
+        // if (listInnerRef.current) {
+        //     const { scrollTop, scrollHeight, clientHeight } = listInnerRef.current;
+        //     if (scrollTop + clientHeight === scrollHeight) {
+        //         console.log("reached bottom");
+        //     }
+        // }
+    };
+
     try {
         return (
-            <Masonry columns={4} spacing={1}>
-                {
-                    getImages()
-                }
-            </Masonry>
+            <div onScroll={console.log('scrolling!')} ref={listInnerRef}>
+                <Masonry columns={4} spacing={1} style={{overflowY: 'auto'}}>
+                    {
+                        getImages()
+                    }
+                </Masonry>
+            </div>
         )
     } catch (error) {
         return (<NoMatch/>)
