@@ -117,19 +117,21 @@ function NavBar() {
                 ))}
             </TextField>
 
-            <TextField
-                id="time"
-                select
-                label="time"
-                value={time}
-                onChange={handleTimeChange}
-            >
-                {times.map((option) => (
-                    <MenuItem key={option.value} value={option.value}>
-                        {option.label}
-                    </MenuItem>
-                ))}
-            </TextField>
+            {category === 'top' &&
+                <TextField
+                    id="time"
+                    select
+                    label="time"
+                    value={time}
+                    onChange={handleTimeChange}
+                >
+                    {times.map((option) => (
+                        <MenuItem key={option.value} value={option.value}>
+                            {option.label}
+                        </MenuItem>
+                    ))}
+                </TextField>
+            }
 
         </nav>
     )
